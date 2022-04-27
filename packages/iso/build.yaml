@@ -1,0 +1,18 @@
+image: golang:alpine
+prelude:
+- apk update
+- apk add git
+- git clone https://github.com/bhojpur/iso
+
+env:
+- CGO_ENABLED=0
+{{ if eq .Values.name "iso-arm" }}
+- GOARCH=arm
+{{end}}
+steps:
+- |
+  PACKAGE_VERSION=${PACKAGE_VERSION%\+*} && \
+  cd iso && git checkout "${PACKAGE_VERSION}" -b build && \
+  go build -ldflags="-w -s -X github.com/bhojpur/iso/pkg/version.BuildTime=$(date -u '+%Y-%m-%d') -X github.com/bhojpur/iso/pkg/version.BuildCommit=$(git rev-parse HEAD)" && mv luet /usr/bin/luet
+includes:
+- /usr/bin/isomgr
