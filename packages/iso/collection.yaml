@@ -1,0 +1,13 @@
+packages:
+- category: "system"
+  name: "iso-arm"
+  version: "0.31.2"
+  labels:
+    github.repo: "iso"
+    github.owner: "bhojpur"
+- category: "system"
+  name: "iso"
+  version: "0.31.2"
+  labels:
+    github.repo: "iso"
+    github.owner: "bhojpur"
